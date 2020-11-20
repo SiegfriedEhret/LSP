@@ -1,0 +1,1792 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.5">
+    
+    
+      
+        <title>Language Servers - LSP for Sublime Text</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.21aed14c.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.196e0c26.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#ffa724">
+        
+      
+    
+    
+    
+      
+        
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="orange" data-md-color-accent="orange">
+      
+  
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#language-servers" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href=".." title="LSP for Sublime Text" class="md-header-nav__button md-logo" aria-label="LSP for Sublime Text">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M542.22 32.05c-54.8 3.11-163.72 14.43-230.96 55.59-4.64 2.84-7.27 7.89-7.27 13.17v363.87c0 11.55 12.63 18.85 23.28 13.49 69.18-34.82 169.23-44.32 218.7-46.92 16.89-.89 30.02-14.43 30.02-30.66V62.75c.01-17.71-15.35-31.74-33.77-30.7zM264.73 87.64C197.5 46.48 88.58 35.17 33.78 32.05 15.36 31.01 0 45.04 0 62.75V400.6c0 16.24 13.13 29.78 30.02 30.66 49.49 2.6 149.59 12.11 218.77 46.95 10.62 5.35 23.21-1.94 23.21-13.46V100.63c0-5.29-2.62-10.14-7.27-12.99z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            LSP for Sublime Text
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Language Servers
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/sublimelsp/LSP/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="LSP for Sublime Text" class="md-nav__button md-logo" aria-label="LSP for Sublime Text">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M542.22 32.05c-54.8 3.11-163.72 14.43-230.96 55.59-4.64 2.84-7.27 7.89-7.27 13.17v363.87c0 11.55 12.63 18.85 23.28 13.49 69.18-34.82 169.23-44.32 218.7-46.92 16.89-.89 30.02-14.43 30.02-30.66V62.75c.01-17.71-15.35-31.74-33.77-30.7zM264.73 87.64C197.5 46.48 88.58 35.17 33.78 32.05 15.36 31.01 0 45.04 0 62.75V400.6c0 16.24 13.13 29.78 30.02 30.66 49.49 2.6 149.59 12.11 218.77 46.95 10.62 5.35 23.21-1.94 23.21-13.46V100.63c0-5.29-2.62-10.14-7.27-12.99z"/></svg>
+
+    </a>
+    LSP for Sublime Text
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/sublimelsp/LSP/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." class="md-nav__link">
+      Getting Started
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Language Servers
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" class="md-nav__link md-nav__link--active">
+      Language Servers
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#bash" class="md-nav__link">
+    Bash
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cc" class="md-nav__link">
+    C/C++
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#c" class="md-nav__link">
+    C&#35;
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clojure" class="md-nav__link">
+    Clojure
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#css" class="md-nav__link">
+    CSS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#d" class="md-nav__link">
+    D
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dart" class="md-nav__link">
+    Dart
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dockerfile" class="md-nav__link">
+    Dockerfile
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#elixir" class="md-nav__link">
+    Elixir
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#elm" class="md-nav__link">
+    Elm
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#erlang" class="md-nav__link">
+    Erlang
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flow-javascript" class="md-nav__link">
+    Flow (JavaScript)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fortran" class="md-nav__link">
+    Fortran
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#go" class="md-nav__link">
+    Go
+  </a>
+  
+    <nav class="md-nav" aria-label="Go">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gopls" class="md-nav__link">
+    Gopls
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sourcegraphs-go-langserver" class="md-nav__link">
+    Sourcegraph's go-langserver
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#haskell" class="md-nav__link">
+    Haskell
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#java" class="md-nav__link">
+    Java
+  </a>
+  
+    <nav class="md-nav" aria-label="Java">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#eclipse-jdt-language-server" class="md-nav__link">
+    Eclipse JDT Language Server
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#intellij" class="md-nav__link">
+    IntelliJ
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#eslint" class="md-nav__link">
+    ESLint
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#javascripttypescript" class="md-nav__link">
+    JavaScript/TypeScript
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#julia" class="md-nav__link">
+    Julia
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kotlin" class="md-nav__link">
+    Kotlin
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#latex" class="md-nav__link">
+    LaTeX
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lisp" class="md-nav__link">
+    Lisp
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lua" class="md-nav__link">
+    Lua
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ocamlreason" class="md-nav__link">
+    OCaml/Reason
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#php" class="md-nav__link">
+    PHP
+  </a>
+  
+    <nav class="md-nav" aria-label="PHP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intelephense" class="md-nav__link">
+    Intelephense
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#polymer" class="md-nav__link">
+    Polymer
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#powershell" class="md-nav__link">
+    PowerShell
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#python" class="md-nav__link">
+    Python
+  </a>
+  
+    <nav class="md-nav" aria-label="Python">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#palantirs-python-language-server" class="md-nav__link">
+    Palantir's Python Language Server
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#microsofts-python-language-server" class="md-nav__link">
+    Microsoft's Python Language Server
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#r" class="md-nav__link">
+    R
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rubyruby-on-rails" class="md-nav__link">
+    Ruby/Ruby on Rails
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rust" class="md-nav__link">
+    Rust
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scala" class="md-nav__link">
+    Scala
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#swift" class="md-nav__link">
+    Swift
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#terraform" class="md-nav__link">
+    Terraform
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vue-javascript" class="md-nav__link">
+    Vue (Javascript)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#xml" class="md-nav__link">
+    XML
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../features/" class="md-nav__link">
+      Features
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" >
+    <label class="md-nav__link" for="nav-4">
+      Guides
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Guides" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon"></span>
+        Guides
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../guides/server_configuration/" class="md-nav__link">
+      Server Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../guides/cplusplus/" class="md-nav__link">
+      Setup C/C++
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../troubleshooting/" class="md-nav__link">
+      Troubleshooting
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#bash" class="md-nav__link">
+    Bash
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cc" class="md-nav__link">
+    C/C++
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#c" class="md-nav__link">
+    C&#35;
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clojure" class="md-nav__link">
+    Clojure
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#css" class="md-nav__link">
+    CSS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#d" class="md-nav__link">
+    D
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dart" class="md-nav__link">
+    Dart
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dockerfile" class="md-nav__link">
+    Dockerfile
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#elixir" class="md-nav__link">
+    Elixir
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#elm" class="md-nav__link">
+    Elm
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#erlang" class="md-nav__link">
+    Erlang
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flow-javascript" class="md-nav__link">
+    Flow (JavaScript)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fortran" class="md-nav__link">
+    Fortran
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#go" class="md-nav__link">
+    Go
+  </a>
+  
+    <nav class="md-nav" aria-label="Go">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gopls" class="md-nav__link">
+    Gopls
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sourcegraphs-go-langserver" class="md-nav__link">
+    Sourcegraph's go-langserver
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#haskell" class="md-nav__link">
+    Haskell
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#java" class="md-nav__link">
+    Java
+  </a>
+  
+    <nav class="md-nav" aria-label="Java">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#eclipse-jdt-language-server" class="md-nav__link">
+    Eclipse JDT Language Server
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#intellij" class="md-nav__link">
+    IntelliJ
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#eslint" class="md-nav__link">
+    ESLint
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#javascripttypescript" class="md-nav__link">
+    JavaScript/TypeScript
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#julia" class="md-nav__link">
+    Julia
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kotlin" class="md-nav__link">
+    Kotlin
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#latex" class="md-nav__link">
+    LaTeX
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lisp" class="md-nav__link">
+    Lisp
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lua" class="md-nav__link">
+    Lua
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ocamlreason" class="md-nav__link">
+    OCaml/Reason
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#php" class="md-nav__link">
+    PHP
+  </a>
+  
+    <nav class="md-nav" aria-label="PHP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intelephense" class="md-nav__link">
+    Intelephense
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#polymer" class="md-nav__link">
+    Polymer
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#powershell" class="md-nav__link">
+    PowerShell
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#python" class="md-nav__link">
+    Python
+  </a>
+  
+    <nav class="md-nav" aria-label="Python">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#palantirs-python-language-server" class="md-nav__link">
+    Palantir's Python Language Server
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#microsofts-python-language-server" class="md-nav__link">
+    Microsoft's Python Language Server
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#r" class="md-nav__link">
+    R
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rubyruby-on-rails" class="md-nav__link">
+    Ruby/Ruby on Rails
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rust" class="md-nav__link">
+    Rust
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scala" class="md-nav__link">
+    Scala
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#swift" class="md-nav__link">
+    Swift
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#terraform" class="md-nav__link">
+    Terraform
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vue-javascript" class="md-nav__link">
+    Vue (Javascript)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#xml" class="md-nav__link">
+    XML
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/sublimelsp/LSP/edit/st4000-exploration/docs/language_servers.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="language-servers">Language Servers<a class="headerlink" href="#language-servers" title="Permanent link">#</a></h1>
+<p>The following list can help you to install and configure language servers for use with LSP.
+Please remember to put the configurations in a <code>"clients"</code> dictionary in your <code>LSP.sublime-settings</code> file, as shown in the example above.
+If you use or would like to use language servers that are not in this list, please create issues or pull requests, so we can add support for more languages.</p>
+<h3 id="bash">Bash<a name="bash"></a><a class="headerlink" href="#bash" title="Permanent link">#</a></h3>
+<ol>
+<li>Make sure you have <code>node</code> installed.</li>
+<li>Download the <a href="https://packagecontrol.io/packages/LSP-bash">LSP-bash</a> helper package.</li>
+</ol>
+<h3 id="cc">C/C++<a class="headerlink" href="#cc" title="Permanent link">#</a></h3>
+<p>See the dedicated <a href="/guides/cplusplus"/>C/C++ guide</a> for using ccls or clangd.</p>
+<h3 id="c">C&#35;<a name="csharp"></a><a class="headerlink" href="#c" title="Permanent link">#</a></h3>
+<ol>
+<li><a href="https://github.com/OmniSharp/omnisharp-roslyn/releases">Download</a> or build <a href="https://github.com/OmniSharp/omnisharp-roslyn">OmniSharp</a>.</li>
+<li>Add to LSP settings' clients:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="s2">&quot;omnisharp&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&quot;command&quot;</span><span class="o">:</span> <span class="p">[</span>
+    <span class="s2">&quot;/home/tb/prebuilt/omnisharp/OmniSharp.exe&quot;</span><span class="p">,</span> <span class="c1">// or eg. /usr/local/opt/omnisharp/run</span>
+    <span class="s2">&quot;-lsp&quot;</span>
+  <span class="p">],</span>
+  <span class="s2">&quot;enabled&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="s2">&quot;languageId&quot;</span><span class="o">:</span> <span class="s2">&quot;csharp&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;document_selector&quot;</span><span class="o">:</span> <span class="s2">&quot;source.cs&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="clojure">Clojure<a name="clojure"></a><a class="headerlink" href="#clojure" title="Permanent link">#</a></h3>
+<ol>
+<li>Download <a href="https://github.com/snoe/clojure-lsp">clojure-lsp</a>.</li>
+<li>Add to LSP settings' clients:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="s2">&quot;clojure-lsp&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&quot;command&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;java&quot;</span><span class="p">,</span> <span class="s2">&quot;-jar&quot;</span><span class="p">,</span> <span class="s2">&quot;/PATH/TO/clojure-lsp&quot;</span><span class="p">],</span>
+  <span class="s2">&quot;enabled&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="s2">&quot;initializationOptions&quot;</span><span class="o">:</span> <span class="p">{},</span>
+  <span class="s2">&quot;languageId&quot;</span><span class="o">:</span> <span class="s2">&quot;clojure&quot;</span> <span class="c1">// will match source.clojure</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>clojure-lsp has a <a href="https://github.com/snoe/clojure-lsp#initializationoptions">rich set of initializationOptions</a>.</p>
+<h3 id="css">CSS<a name="css"></a><a class="headerlink" href="#css" title="Permanent link">#</a></h3>
+<ol>
+<li>
+<p>Install the CSS language server from VS Code:</p>
+<div class="highlight"><pre><span></span><code>npm install -g vscode-css-languageserver-bin
+</code></pre></div>
+</li>
+<li>
+<p>Run "LSP: Enable Language Server Globally" from the Command Palette and choose <code>vscode-css</code>.</p>
+</li>
+</ol>
+<h3 id="d">D<a name="d"></a><a class="headerlink" href="#d" title="Permanent link">#</a></h3>
+<ol>
+<li>
+<p>Install the <a href="https://github.com/d-language-server/dls">D Language Server</a>:</p>
+<div class="highlight"><pre><span></span><code>dub fetch dls
+dub run dls:bootstrap
+</code></pre></div>
+</li>
+<li>
+<p>Add to LSP settings' clients:</p>
+</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="s2">&quot;dls&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&quot;command&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;&lt;PATH TO DLS EXECUTABLE&gt;&quot;</span><span class="p">],</span>
+  <span class="s2">&quot;enabled&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="s2">&quot;languageId&quot;</span><span class="o">:</span> <span class="s2">&quot;d&quot;</span> <span class="c1">// will match source.d</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="dart">Dart<a name="dart"></a><a class="headerlink" href="#dart" title="Permanent link">#</a></h3>
+<ol>
+<li>Install the <a href="https://packagecontrol.io/packages/Dartlight">Dartlight</a> package from Package Control for syntax highlighting.</li>
+<li>Install the <a href="https://dart.dev/get-dart">Dart SDK</a> and locate path to <code>analysis_server.dart.snapshot</code> in the "snapshots/bin" directory.</li>
+<li>Add to LSP settings' clients (adjust the path if necessary):</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="s2">&quot;dart&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&quot;command&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;dart&quot;</span><span class="p">,</span> <span class="s2">&quot;/usr/local/opt/dart/libexec/bin/snapshots/analysis_server.dart.snapshot&quot;</span><span class="p">,</span> <span class="s2">&quot;--lsp&quot;</span><span class="p">],</span>
+  <span class="s2">&quot;enabled&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="s2">&quot;languageId&quot;</span><span class="o">:</span> <span class="s2">&quot;dart&quot;</span> <span class="c1">// will match source.dart</span>
+<span class="p">}</span>
+</code></pre></div>
+<blockquote>
+<p><strong>Note</strong>: The older <a href="https://github.com/natebosch/dart_language_server">natebosch/dart_language_server</a> is now deprecated.</p>
+</blockquote>
+<h3 id="dockerfile">Dockerfile<a name="dockerfile"></a><a class="headerlink" href="#dockerfile" title="Permanent link">#</a></h3>
+<ol>
+<li>Install the <a href="https://packagecontrol.io/packages/Dockerfile%20Syntax%20Highlighting">Dockerfile Syntax Highlighting</a> package from Package Control for syntax highlighting.</li>
+<li>
+<p>Install the <a href="https://github.com/rcjsuen/dockerfile-language-server-nodejs">Dockerfile Language Server</a>:</p>
+<div class="highlight"><pre><span></span><code>npm install -g dockerfile-language-server-nodejs
+</code></pre></div>
+</li>
+<li>
+<p>Add to LSP settings' clients:</p>
+</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="s2">&quot;docker-langserver&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&quot;command&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;docker-langserver&quot;</span><span class="p">,</span> <span class="s2">&quot;--stdio&quot;</span><span class="p">],</span>
+  <span class="s2">&quot;enabled&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="s2">&quot;languageId&quot;</span><span class="o">:</span> <span class="s2">&quot;dockerfile&quot;</span><span class="p">,</span> <span class="c1">// will match source.dockerfile</span>
+  <span class="s2">&quot;settings&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="c1">// string values must be equal to &quot;ignore&quot;, &quot;warning&quot;, or &quot;error&quot;</span>
+    <span class="s2">&quot;docker.languageserver.diagnostics.deprecatedMaintainer&quot;</span><span class="o">:</span> <span class="s2">&quot;warning&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;docker.languageserver.diagnostics.directiveCasing&quot;</span><span class="o">:</span> <span class="s2">&quot;warning&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;docker.languageserver.diagnostics.emptyContinuationLine&quot;</span><span class="o">:</span> <span class="s2">&quot;warning&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;docker.languageserver.diagnostics.instructionCasing&quot;</span><span class="o">:</span> <span class="s2">&quot;warning&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;docker.languageserver.diagnostics.instructionCmdMultiple&quot;</span><span class="o">:</span> <span class="s2">&quot;warning&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;docker.languageserver.diagnostics.instructionEntrypointMultiple&quot;</span><span class="o">:</span> <span class="s2">&quot;warning&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;docker.languageserver.diagnostics.instructionHealthcheckMultiple&quot;</span><span class="o">:</span> <span class="s2">&quot;warning&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;docker.languageserver.diagnostics.instructionJSONInSingleQuotes&quot;</span><span class="o">:</span> <span class="s2">&quot;warning&quot;</span>
+  <span class="p">},</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="elixir">Elixir<a name="elixir"></a><a class="headerlink" href="#elixir" title="Permanent link">#</a></h3>
+<ol>
+<li>Install the <a href="https://packagecontrol.io/packages/Elixir">Elixir</a> package from Package Control for syntax highlighting.</li>
+<li>Download the prebuilt binaries or compile <a href="https://github.com/elixir-lsp/elixir-ls">elixir-ls</a>.
+   This will get you a folder containing <code>language_server.sh</code> among other things.</li>
+<li>Add to LSP settings' clients (adjust the path if necessary):</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="s2">&quot;elixir-ls&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&quot;command&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;/home/someUser/somePlace/elixir-ls/release/language_server.sh&quot;</span><span class="p">],</span>
+  <span class="s2">&quot;enabled&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="s2">&quot;languageId&quot;</span><span class="o">:</span> <span class="s2">&quot;elixir&quot;</span> <span class="c1">// will match source.elixir</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="elm">Elm<a name="elm"></a><a class="headerlink" href="#elm" title="Permanent link">#</a></h3>
+<ol>
+<li>Install the <a href="https://packagecontrol.io/packages/Elm%20Syntax%20Highlighting">Elm Syntax Highlighting</a> package from Package Control for syntax highlighting.</li>
+<li>See instructions for installing the <a href="https://github.com/elm-tooling/elm-language-server">elm-language-server</a>.</li>
+<li>Add to LSP settings' clients:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="s2">&quot;elm&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&quot;command&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;elm-language-server&quot;</span><span class="p">,</span> <span class="s2">&quot;--stdio&quot;</span><span class="p">],</span>
+  <span class="s2">&quot;enabled&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="s2">&quot;initializationOptions&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;elmAnalyseTrigger&quot;</span><span class="o">:</span> <span class="s2">&quot;change&quot;</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;languageId&quot;</span><span class="o">:</span> <span class="s2">&quot;elm&quot;</span> <span class="c1">// will match source.elm</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="erlang">Erlang<a name="erlang"></a><a class="headerlink" href="#erlang" title="Permanent link">#</a></h3>
+<ol>
+<li>See instructions for installing the <a href="https://github.com/erlang-ls/erlang_ls">Erlang Language Server</a>.</li>
+<li>Add to LSP settings' clients:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="s2">&quot;erlang-ls&quot;</span><span class="err">:</span> <span class="p">{</span>
+  <span class="nt">&quot;command&quot;</span>   <span class="p">:</span> <span class="p">[</span> <span class="s2">&quot;/path/to/my/erlang_ls&quot;</span><span class="p">,</span> <span class="s2">&quot;--transport&quot;</span><span class="p">,</span> <span class="s2">&quot;stdio&quot;</span> <span class="p">],</span>
+  <span class="nt">&quot;enabled&quot;</span>   <span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="nt">&quot;languageId&quot;</span><span class="p">:</span> <span class="s2">&quot;erlang&quot;</span> <span class="err">//</span> <span class="err">will</span> <span class="err">match</span> <span class="err">source.erlang</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="flow-javascript">Flow (JavaScript)<a name="flow"></a><a class="headerlink" href="#flow-javascript" title="Permanent link">#</a></h3>
+<p>Official part of <a href="https://github.com/facebook/flow">flow-bin</a>:</p>
+<div class="highlight"><pre><span></span><code>npm install -g flow-bin
+</code></pre></div>
+<p>Older <a href="https://github.com/flowtype/flow-language-server">flow-language-server</a>:</p>
+<div class="highlight"><pre><span></span><code>npm install -g flow-language-server
+</code></pre></div>
+<h3 id="fortran">Fortran<a name="fortran"></a><a class="headerlink" href="#fortran" title="Permanent link">#</a></h3>
+<ol>
+<li>Install the <a href="https://packagecontrol.io/packages/Fortran">Fortran</a> package from Package Control for syntax highlighting.</li>
+<li>
+<p>Install the <a href="https://github.com/hansec/fortran-language-server">Fortran Language Server</a> (requires Python):</p>
+<div class="highlight"><pre><span></span><code>pip install fortran-language-server
+</code></pre></div>
+</li>
+<li>
+<p>Add to LSP settings' clients:</p>
+</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="s2">&quot;fortls&quot;</span><span class="err">:</span> <span class="p">{</span>
+  <span class="nt">&quot;command&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;fortls&quot;</span><span class="p">],</span>
+  <span class="nt">&quot;enabled&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="nt">&quot;languageId&quot;</span><span class="p">:</span> <span class="s2">&quot;fortran&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;document_selector&quot;</span><span class="p">:</span> <span class="s2">&quot;source.modern-fortran | source.fixedform-fortran&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<blockquote>
+<p><strong>Note</strong>: See the <a href="https://github.com/hansec/fortran-language-server#language-server-settings">Language server settings</a>
+  documentation for a detailed description of available configuration options, for example
+  <code>"command": ["fortls", "--lowercase_intrinsics"]</code> to use lowercase for autocomplete suggestions.</p>
+</blockquote>
+<h3 id="go">Go<a name="go"></a><a class="headerlink" href="#go" title="Permanent link">#</a></h3>
+<h4 id="gopls">Gopls<a class="headerlink" href="#gopls" title="Permanent link">#</a></h4>
+<ol>
+<li>
+<p>Install <a href="https://github.com/golang/tools/tree/master/gopls">gopls</a>, the official language server for the Go language:</p>
+<div class="highlight"><pre><span></span><code>go get golang.org/x/tools/gopls@latest
+</code></pre></div>
+</li>
+<li>
+<p>Run "LSP: Enable Language Server Globally" from the Command Palette and choose <code>gopls</code>.</p>
+</li>
+</ol>
+<blockquote>
+<p><strong>Note</strong>: See the <a href="https://github.com/golang/tools/blob/master/gopls/doc/user.md#user-guide">User guide</a> for detailed installation instructions and configurations.</p>
+</blockquote>
+<h4 id="sourcegraphs-go-langserver">Sourcegraph's go-langserver<a class="headerlink" href="#sourcegraphs-go-langserver" title="Permanent link">#</a></h4>
+<ol>
+<li>
+<p>Install Sourcegraph's <a href="https://github.com/sourcegraph/go-langserver">Go Language Server</a>:</p>
+<div class="highlight"><pre><span></span><code>go get github.com/sourcegraph/go-langserver
+</code></pre></div>
+</li>
+<li>
+<p>Run "LSP: Enable Language Server Globally" from the Command Palette and choose <code>golsp</code>.</p>
+</li>
+</ol>
+<blockquote>
+<p><strong>Note</strong>: Work on this language server has been deprioritized in favor of the gopls language server mentioned above.</p>
+</blockquote>
+<h3 id="haskell">Haskell<a class="headerlink" href="#haskell" title="Permanent link">#</a></h3>
+<ol>
+<li>Install <a href="https://github.com/haskell/haskell-language-server">haskell-language-server</a>.</li>
+<li>Add to LSP settings' clients:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="s2">&quot;haskell-language-server&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&quot;enabled&quot;</span><span class="o">:</span> <span class="kc">true</span>
+  <span class="s2">&quot;command&quot;</span><span class="o">:</span> <span class="p">[</span>
+    <span class="s2">&quot;haskell-language-server-wrapper&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;--lsp&quot;</span>
+  <span class="p">],</span>
+  <span class="s2">&quot;languageId&quot;</span><span class="o">:</span> <span class="s2">&quot;haskell&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;scopes&quot;</span><span class="o">:</span> <span class="p">[</span>
+    <span class="s2">&quot;source.haskell&quot;</span>
+  <span class="p">],</span>
+  <span class="s2">&quot;syntaxes&quot;</span><span class="o">:</span> <span class="p">[</span>
+    <span class="s2">&quot;Packages/Haskell/Haskell.sublime-syntax&quot;</span>
+  <span class="p">],</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="java">Java<a name="java"></a><a class="headerlink" href="#java" title="Permanent link">#</a></h3>
+<h4 id="eclipse-jdt-language-server">Eclipse JDT Language Server<a class="headerlink" href="#eclipse-jdt-language-server" title="Permanent link">#</a></h4>
+<ol>
+<li>Download and extract Eclipse's <a href="https://download.eclipse.org/jdtls/snapshots/jdt-language-server-latest.tar.gz">jdt-ls</a>.</li>
+<li>Add to LSP settings' clients:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="s2">&quot;jdtls&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&quot;command&quot;</span><span class="o">:</span> <span class="p">[</span>
+    <span class="s2">&quot;java&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;--add-modules=ALL-SYSTEM&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;--add-opens&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;java.base/java.util=ALL-UNNAMED&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;--add-opens&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;java.base/java.lang=ALL-UNNAMED&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;-Declipse.application=org.eclipse.jdt.ls.core.id1&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;-Dosgi.bundles.defaultStartLevel=4&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;-Declipse.product=org.eclipse.jdt.ls.core.product&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;-Dfile.encoding=UTF-8&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;-DwatchParentProcess={true|false}&quot;</span><span class="p">,</span>  <span class="c1">// false on windows, true other OSs</span>
+    <span class="s2">&quot;-noverify&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;-Xmx1G&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;-XX:+UseG1GC&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;-XX:+UseStringDeduplication&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;-jar&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;PATH/TO/jdt-language-server-latest/plugins/org.eclipse.equinox.launcher_*.jar&quot;</span> <span class="c1">// 1. replace the PATH/TO with your own 2. replace * with the file version</span>
+    <span class="s2">&quot;-configuration&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;PATH/TO/jdt-language-server-latest/config_{win|mac|linux}&quot;</span><span class="p">,</span> <span class="c1">// 1. replace the PATH/TO with your own 2. choose the config folder based on the OS</span>
+    <span class="s2">&quot;-data&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;&lt;TEMP_DIR&gt;/${project_base_name}/jdt_ws&quot;</span> <span class="c1">// replace &lt;TEMP_DIR&gt; with the temp folder in your system. macOS: echo $TMPDIR</span>
+  <span class="p">],</span>
+  <span class="s2">&quot;enabled&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="s2">&quot;languageId&quot;</span><span class="o">:</span> <span class="s2">&quot;java&quot;</span> <span class="c1">// will match source.java</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="intellij">IntelliJ<a class="headerlink" href="#intellij" title="Permanent link">#</a></h4>
+<p>Requires IntelliJ to be running.</p>
+<div class="highlight"><pre><span></span><code><span class="s2">&quot;intellij&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&quot;command&quot;</span><span class="o">:</span> <span class="p">[],</span>
+  <span class="s2">&quot;languageId&quot;</span><span class="o">:</span> <span class="s2">&quot;java&quot;</span><span class="p">,</span> <span class="c1">// will match source.java</span>
+  <span class="s2">&quot;tcp_port&quot;</span><span class="o">:</span> <span class="mf">8080</span> <span class="c1">// default port</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="eslint">ESLint<a name="eslint"></a><a class="headerlink" href="#eslint" title="Permanent link">#</a></h3>
+<ol>
+<li>Make sure you have <code>node</code> installed.</li>
+<li>Install the <a href="https://packagecontrol.io/packages/LSP-eslint">LSP-eslint</a> helper package. It will install the
+   server for you in $DATA/Cache.</li>
+</ol>
+<h3 id="javascripttypescript">JavaScript/TypeScript<a name="typescript"></a><a class="headerlink" href="#javascripttypescript" title="Permanent link">#</a></h3>
+<ol>
+<li>Make sure you have <code>node</code> installed.</li>
+<li>Install the <a href="https://packagecontrol.io/packages/LSP-typescript">LSP-typescript</a> helper package. It will install the
+   server for you in $DATA/Cache.</li>
+</ol>
+<h3 id="julia">Julia<a name="julia"></a><a class="headerlink" href="#julia" title="Permanent link">#</a></h3>
+<ol>
+<li>Install the <a href="https://packagecontrol.io/packages/Julia">Julia</a> package from Package Control for syntax highlighting.</li>
+<li>
+<p>Install the <code>LanguageServer</code> and <code>SymbolServer</code> packages from the Julia REPL:</p>
+<div class="highlight"><pre><span></span><code>import Pkg;
+Pkg.add(&quot;LanguageServer&quot;)
+Pkg.add(&quot;SymbolServer&quot;)
+</code></pre></div>
+</li>
+<li>
+<p>Add to LSP settings' clients:</p>
+</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="s2">&quot;julials&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&quot;command&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;bash&quot;</span><span class="p">,</span> <span class="s2">&quot;PATH_TO_JULIA_SERVER/LanguageServer/contrib/languageserver.sh&quot;</span><span class="p">],</span> <span class="c1">// on Linux/macOS</span>
+  <span class="c1">// &quot;command&quot;: [&quot;julia&quot;, &quot;--startup-file=no&quot;, &quot;--history-file=no&quot;, &quot;-e&quot;, &quot;using Pkg; using LanguageServer; using LanguageServer.SymbolServer; env_path=dirname(Pkg.Types.Context().env.project_file); server=LanguageServer.LanguageServerInstance(stdin,stdout,false,env_path); run(server)&quot;], // on Windows</span>
+  <span class="s2">&quot;languageId&quot;</span><span class="o">:</span> <span class="s2">&quot;julia&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;settings&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="c1">// Default values from VS Code:</span>
+    <span class="s2">&quot;julia.format.calls&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>      <span class="c1">// Format function calls</span>
+    <span class="s2">&quot;julia.format.comments&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>   <span class="c1">// Format comments</span>
+    <span class="s2">&quot;julia.format.curly&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>      <span class="c1">// Format braces</span>
+    <span class="s2">&quot;julia.format.docs&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>       <span class="c1">// Format inline documentation</span>
+    <span class="s2">&quot;julia.format.indent&quot;</span><span class="o">:</span> <span class="mf">4</span><span class="p">,</span>        <span class="c1">// Indent size for formatting</span>
+    <span class="s2">&quot;julia.format.indents&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>    <span class="c1">// Format file indents</span>
+    <span class="s2">&quot;julia.format.iterOps&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>    <span class="c1">// Format loop iterators</span>
+    <span class="s2">&quot;julia.format.kw&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>         <span class="c1">// Remove spaces around = in function keywords</span>
+    <span class="s2">&quot;julia.format.lineends&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>  <span class="c1">// [undocumented]</span>
+    <span class="s2">&quot;julia.format.ops&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>        <span class="c1">// Format whitespace around operators</span>
+    <span class="s2">&quot;julia.format.tuples&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>     <span class="c1">// Format tuples</span>
+    <span class="s2">&quot;julia.lint.call&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>        <span class="c1">// Check calls against existing methods (experimental)</span>
+    <span class="s2">&quot;julia.lint.constif&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>      <span class="c1">// Check for constant conditionals of if statements</span>
+    <span class="s2">&quot;julia.lint.datadecl&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>    <span class="c1">// [undocumented]</span>
+    <span class="s2">&quot;julia.lint.iter&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>         <span class="c1">// Check iterator syntax of loops</span>
+    <span class="s2">&quot;julia.lint.lazy&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>         <span class="c1">// Check for deterministic lazy boolean operators</span>
+    <span class="s2">&quot;julia.lint.modname&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>      <span class="c1">// Check for invalid submodule names</span>
+    <span class="s2">&quot;julia.lint.nothingcomp&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span> <span class="c1">// [undocumented]</span>
+    <span class="s2">&quot;julia.lint.pirates&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>      <span class="c1">// Check for type piracy</span>
+    <span class="s2">&quot;julia.lint.run&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>          <span class="c1">// run the linter on active files</span>
+    <span class="s2">&quot;julia.lint.typeparam&quot;</span><span class="o">:</span> <span class="kc">true</span>     <span class="c1">// Check for unused DataType parameters</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<!-- Alternatively, install the [LSP-julia](https://github.com/randy3k/LSP-julia) package for Sublime Text. -->
+<!-- (Currently doesn't work with newest release of Julia's LanguageServer) -->
+
+<h3 id="kotlin">Kotlin<a name="kotlin"></a><a class="headerlink" href="#kotlin" title="Permanent link">#</a></h3>
+<ol>
+<li>Install the <a href="https://packagecontrol.io/packages/Kotlin">Kotlin</a> package from Package Control for syntax highlighting.</li>
+<li>Install the <a href="https://github.com/fwcd/KotlinLanguageServer">Kotlin Language Server</a> (requires <a href="https://github.com/fwcd/KotlinLanguageServer/blob/master/BUILDING.md">building</a> first).</li>
+<li>Add to LSP settings' clients:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="s2">&quot;kotlinls&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&quot;command&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;PATH/TO/KotlinLanguageServer/build/install/kotlin-language-server/bin/kotlin-language-server.bat&quot;</span><span class="p">],</span>
+  <span class="s2">&quot;enabled&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="s2">&quot;languageId&quot;</span><span class="o">:</span> <span class="s2">&quot;kotlin&quot;</span><span class="p">,</span> <span class="c1">// will match source.kotlin</span>
+  <span class="s2">&quot;settings&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;kotlin&quot;</span><span class="o">:</span> <span class="p">{</span>
+      <span class="c1">// put your server settings here</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="latex">LaTeX<a name="latex"></a><a class="headerlink" href="#latex" title="Permanent link">#</a></h3>
+<ol>
+<li>Download a <a href="https://github.com/latex-lsp/texlab/releases">precompiled binary</a> (Windows/Linux/macOS) of the <a href="https://texlab.netlify.com/">TexLab</a> language server.</li>
+<li>Add to LSP settings' clients:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="s2">&quot;texlab&quot;</span><span class="err">:</span> <span class="p">{</span>
+  <span class="nt">&quot;command&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;PATH/TO/texlab&quot;</span><span class="p">],</span>
+  <span class="nt">&quot;enabled&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="nt">&quot;languages&quot;</span><span class="p">:</span> <span class="p">[{</span>
+    <span class="nt">&quot;languageId&quot;</span><span class="p">:</span> <span class="s2">&quot;latex&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;document_selector&quot;</span><span class="p">:</span> <span class="s2">&quot;text.tex.latex&quot;</span>
+  <span class="p">},</span> <span class="p">{</span>
+    <span class="nt">&quot;languageId&quot;</span><span class="p">:</span> <span class="s2">&quot;bibtex&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;document_selector&quot;</span><span class="p">:</span> <span class="s2">&quot;text.bibtex&quot;</span>
+  <span class="p">}]</span>
+<span class="p">}</span>
+</code></pre></div>
+<blockquote>
+<p><strong>Note</strong>: To enable code completions while typing, ensure to have <code>text.tex.latex</code> (for LaTeX files) and/or <code>text.bibtex</code>
+  (for BibTeX files) included in the <code>auto_complete_selector</code> setting in your <code>Preferences.sublime-settings</code> file.
+  For further requirements see the <a href="https://texlab.netlify.com/docs#requirements">TexLab Docs</a>.</p>
+</blockquote>
+<h3 id="lisp">Lisp<a name="lisp"></a><a class="headerlink" href="#lisp" title="Permanent link">#</a></h3>
+<ol>
+<li>Install <a href="https://github.com/cxxxr/cl-lsp">cc-lsp</a> using Roswell.</li>
+<li>Add to LSP settings' clients:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="s2">&quot;cc-lsp&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&quot;command&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;cl-lsp&quot;</span><span class="p">,</span> <span class="s2">&quot;stdio&quot;</span><span class="p">],</span>
+  <span class="s2">&quot;enabled&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="s2">&quot;languageId&quot;</span><span class="o">:</span> <span class="s2">&quot;lisp&quot;</span> <span class="c1">// will match source.lisp</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="lua">Lua<a name="lua"></a><a class="headerlink" href="#lua" title="Permanent link">#</a></h3>
+<ol>
+<li>Download the <a href="https://marketplace.visualstudio.com/items?itemName=sumneko.lua">VS Code extension</a>.</li>
+<li>Add to LSP settings' clients:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="s2">&quot;lua-ls&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&quot;command&quot;</span><span class="o">:</span> <span class="p">[</span>
+    <span class="s2">&quot;PATH/TO/sumneko.lua-#.#.#/extension/server/bin/lua-language-server&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;-E&quot;</span><span class="p">,</span> <span class="s2">&quot;PATH/TO/sumneko.lua-#.#.#/extension/server/main.lua&quot;</span>
+  <span class="p">],</span>
+  <span class="s2">&quot;enabled&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="s2">&quot;languageId&quot;</span><span class="o">:</span> <span class="s2">&quot;lua&quot;</span> <span class="c1">// will match source.lua</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Alternatively you can use the less maintained <a href="https://github.com/Alloyed/lua-lsp">lua-lsp</a>.</p>
+<h3 id="ocamlreason">OCaml/Reason<a name="reason"></a><a class="headerlink" href="#ocamlreason" title="Permanent link">#</a></h3>
+<ol>
+<li>Install the <a href="https://packagecontrol.io/packages/Reason">Reason</a> package from Package Control for syntax highlighting.</li>
+<li>Install the <a href="https://github.com/jaredly/reason-language-server#sublime-text">Reason Language Server</a>.</li>
+<li>Add to LSP settings' clients:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="s2">&quot;reason&quot;</span><span class="err">:</span> <span class="p">{</span>
+  <span class="nt">&quot;command&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;PATH/TO/reason-language-server.exe&quot;</span><span class="p">],</span>
+  <span class="nt">&quot;enabled&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="nt">&quot;languageId&quot;</span><span class="p">:</span> <span class="s2">&quot;reason&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;document_selector&quot;</span><span class="p">:</span> <span class="s2">&quot;source.ocaml | source.reason&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="php">PHP<a name="php"></a><a class="headerlink" href="#php" title="Permanent link">#</a></h3>
+<h4 id="intelephense">Intelephense<a class="headerlink" href="#intelephense" title="Permanent link">#</a></h4>
+<ol>
+<li>Make sure you have <code>node</code> installed.</li>
+<li>Install the <a href="https://packagecontrol.io/packages/LSP-intelephense">LSP-intelephense</a> helper package. It installs
+   and updates the server for you in $DATA/Cache.</li>
+</ol>
+<h3 id="polymer">Polymer<a name="polymer"></a><a class="headerlink" href="#polymer" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code>npm install -g polymer-editor-service
+</code></pre></div>
+<blockquote>
+<p><strong>Note</strong>: requires an up to date version of NodeJS. v6 is the minimum supported version as of 2017.</p>
+</blockquote>
+<p>Features:</p>
+<ul>
+<li>typeahead completions for elements, attributes, and css custom properties</li>
+<li>documentation on hover for elements and attributes</li>
+<li>jump to definition for elements, attributes, and css custom properties</li>
+<li>linting, configured through <code>polymer.json</code> at your workspace root</li>
+</ul>
+<p>More info: <a href="https://github.com/Polymer/polymer-editor-service">Polymer/polymer-editor-service</a></p>
+<h3 id="powershell">PowerShell<a name="powershell"></a><a class="headerlink" href="#powershell" title="Permanent link">#</a></h3>
+<ol>
+<li>Install the <a href="https://packagecontrol.io/packages/PowerShell">PowerShell</a> package from Package Control for syntax highlighting.</li>
+<li>Download and extract the <a href="https://github.com/PowerShell/PowerShellEditorServices/releases">latest release</a> PowerShellEditorServices.</li>
+<li>Make sure PowerShell help files are up to date by running <code>Update-Help</code> in the PowerShell console (the one you're using in the command below).</li>
+<li>Add to LSP settings' clients:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="s2">&quot;powershell-ls&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&quot;command&quot;</span><span class="o">:</span> <span class="p">[</span>
+    <span class="s2">&quot;powershell&quot;</span><span class="p">,</span> <span class="c1">// or pwsh for PowerShell Core</span>
+    <span class="s2">&quot;-NoLogo&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;-NoProfile&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;-NonInteractive&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;-ExecutionPolicy&quot;</span><span class="p">,</span> <span class="s2">&quot;Bypass&quot;</span><span class="p">,</span> <span class="c1">// Windows only</span>
+    <span class="s2">&quot;-Command&quot;</span><span class="p">,</span> <span class="s2">&quot;PATH/TO/PowerShellEditorServices/PowerShellEditorServices/Start-EditorServices.ps1&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;-LogPath&quot;</span><span class="p">,</span> <span class="s2">&quot;PATH/TO/pses.log&quot;</span><span class="p">,</span> <span class="c1">// specify a path where a logfile should be stored</span>
+    <span class="s2">&quot;-LogLevel&quot;</span><span class="p">,</span> <span class="s2">&quot;Normal&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;-SessionDetailsPath&quot;</span><span class="p">,</span> <span class="s2">&quot;PATH/TO/session.json&quot;</span><span class="p">,</span> <span class="c1">// specify a path where a file for session details should be stored</span>
+    <span class="s2">&quot;-FeatureFlags&quot;</span><span class="p">,</span> <span class="s2">&quot;@()&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;-HostName&quot;</span><span class="p">,</span> <span class="s2">&quot;&#39;Sublime Text&#39;&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;-HostProfileId&quot;</span><span class="p">,</span> <span class="s2">&quot;subl&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;-HostVersion&quot;</span><span class="p">,</span> <span class="s2">&quot;1.0.0&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;-AdditionalModules&quot;</span><span class="p">,</span> <span class="s2">&quot;@()&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;-BundledModulesPath&quot;</span><span class="p">,</span> <span class="s2">&quot;PATH/TO/PowerShellEditorServices&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;-Stdio&quot;</span>
+  <span class="p">],</span>
+  <span class="s2">&quot;enabled&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="s2">&quot;languageId&quot;</span><span class="o">:</span> <span class="s2">&quot;powershell&quot;</span> <span class="c1">// will match source.powershell</span>
+<span class="p">}</span>
+</code></pre></div>
+<blockquote>
+<p><strong>Note</strong>: For more details see this <a href="https://github.com/PowerShell/PowerShellEditorServices/issues/1057">issue</a>.</p>
+</blockquote>
+<h3 id="python">Python<a name="python"></a><a class="headerlink" href="#python" title="Permanent link">#</a></h3>
+<p>There are at least two language servers, use either one.</p>
+<h4 id="palantirs-python-language-server">Palantir's Python Language Server<a class="headerlink" href="#palantirs-python-language-server" title="Permanent link">#</a></h4>
+<div class="highlight"><pre><span></span><code>pip install <span class="s1">&#39;python-language-server[all]&#39;</span>
+</code></pre></div>
+<p>Make sure you can run <code>pyls</code> in your terminal. If you've installed it into a virtualenv, you might need to override the path to <code>pyls</code> in global LSP settings (Package Settings -&gt; LSP -&gt; Settings):</p>
+<div class="highlight"><pre><span></span><code><span class="s2">&quot;pyls&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&quot;command&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;/Users/mike/.virtualenvs/pyls-virtual-env/bin/pyls&quot;</span><span class="p">],</span> <span class="c1">// example path, adjust it for your use case</span>
+  <span class="s2">&quot;enabled&quot;</span><span class="o">:</span> <span class="kc">true</span> <span class="c1">// if you want to enable Python Language Server globally</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>If you use a virtualenv for your current project, add a path to it in your <a href="https://www.sublimetext.com/docs/3/projects.html">project configuration</a> (Project -&gt; Edit Project):</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+  <span class="s2">&quot;settings&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;LSP&quot;</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">&quot;pyls&quot;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">&quot;enabled&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span> <span class="c1">// if you want to enable Python Language Server for current project only</span>
+        <span class="s2">&quot;env&quot;</span><span class="o">:</span> <span class="p">{</span>
+          <span class="c1">// example path, adjust it for your use case</span>
+          <span class="c1">// it needs to be an absolute path, neither $HOME nor ~ work here</span>
+          <span class="s2">&quot;PYTHONPATH&quot;</span><span class="o">:</span> <span class="s2">&quot;/Users/mike/.virtualenvs/my-virtual-env/lib/python3.7/site-packages&quot;</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>A basic configuration below can be used for bootstrapping your own:</p>
+<div class="highlight"><pre><span></span><code>  <span class="c1">//...</span>
+<span class="s2">&quot;pyls&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&quot;enabled&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="s2">&quot;command&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;pyls&quot;</span><span class="p">],</span>
+  <span class="s2">&quot;languageId&quot;</span><span class="o">:</span> <span class="s2">&quot;python&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;scopes&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;source.python&quot;</span><span class="p">],</span>
+  <span class="s2">&quot;syntaxes&quot;</span><span class="o">:</span> <span class="p">[</span>
+    <span class="s2">&quot;Packages/Python/Python.sublime-syntax&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Packages/MagicPython/grammars/MagicPython.tmLanguage&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Packages/Djaneiro/Syntaxes/Python Django.tmLanguage&quot;</span><span class="p">,</span>
+  <span class="p">],</span>
+  <span class="s2">&quot;settings&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;pyls.env&quot;</span><span class="o">:</span> <span class="p">{</span>
+      <span class="c1">// Making Sublime&#39;s own libs available to the linters.</span>
+      <span class="c1">// &quot;PYTHONPATH&quot;: &quot;/Applications/Sublime Text.app/Contents/MacOS/Lib/python33&quot;,</span>
+    <span class="p">},</span>
+    <span class="c1">// Configuration is computed first from user configuration (in home directory),</span>
+    <span class="c1">// overridden by configuration passed in by the language client,</span>
+    <span class="c1">// and then overridden by configuration discovered in the workspace.</span>
+    <span class="s2">&quot;pyls.configurationSources&quot;</span><span class="o">:</span> <span class="p">[</span>
+      <span class="s2">&quot;pycodestyle&quot;</span><span class="p">,</span> <span class="c1">// discovered in ~/.config/pycodestyle, setup.cfg, tox.ini and pycodestyle.cfg</span>
+      <span class="c1">// &quot;flake8&quot;,   // discovered in ~/.config/flake8, setup.cfg, tox.ini and flake8.cfg</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;pyls.plugins.jedi.extra_paths&quot;</span><span class="o">:</span> <span class="p">[</span>
+      <span class="c1">// The directory where the pip installation package is located</span>
+    <span class="p">],</span>
+    <span class="c1">// Enable fuzzy matches when requesting autocomplete</span>
+    <span class="s2">&quot;pyls.plugins.jedi.jedi_completion.fuzzy&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="s2">&quot;pyls.plugins.jedi.pycodestyle.enabled&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="s2">&quot;pyls.plugins.jedi.pycodestyle.exclude&quot;</span><span class="o">:</span> <span class="p">[</span>
+      <span class="c1">// Exclude files or directories which match these patterns</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;pyls.plugins.jedi.pycodestyle.ignore&quot;</span><span class="o">:</span> <span class="p">[</span>
+      <span class="c1">// Exclude files or directories which match these patterns</span>
+    <span class="p">],</span>
+    <span class="c1">// &quot;pyls.plugins.jedi.pycodestyle.maxLineLength: 80&quot; // set maximum allowed line length</span>
+    <span class="s2">&quot;pyls.plugins.pydocstyle.enabled&quot;</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="s2">&quot;pyls.plugins.pyflakes.enabled&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="s2">&quot;pyls.plugins.pylint.enabled&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="s2">&quot;pyls.plugins.yapf.enabled&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="c1">// pyls&#39; 3rd Party Plugins, Mypy type checking for Python 3, Must be installed via pip before enabling</span>
+    <span class="s2">&quot;pyls.plugins.pyls_mypy.enabled&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span> <span class="c1">// Install with: pip install pyls-mypy</span>
+    <span class="s2">&quot;pyls.plugins.pyls_mypy.live_mode&quot;</span><span class="o">:</span> <span class="kc">true</span>
+  <span class="p">}</span>
+<span class="p">},</span>
+</code></pre></div>
+<p>See pylint documentation: <a href="https://github.com/palantir/python-language-server">github:palantir/python-language-server</a></p>
+<p>Description of all built-in settings: https://github.com/palantir/python-language-server/blob/develop/vscode-client/package.json</p>
+<h4 id="microsofts-python-language-server">Microsoft's Python Language Server<a class="headerlink" href="#microsofts-python-language-server" title="Permanent link">#</a></h4>
+<p>Alternatively, use Microsoft Python Language Server (using .NET Core runtime).
+Here is a basic configuration to be added to your User/LSP.sublime-settings file:</p>
+<div class="highlight"><pre><span></span><code>  <span class="c1">//...</span>
+<span class="s2">&quot;mspyls&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&quot;enabled&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="s2">&quot;command&quot;</span><span class="o">:</span> <span class="p">[</span> <span class="s2">&quot;dotnet&quot;</span><span class="p">,</span> <span class="s2">&quot;exec&quot;</span><span class="p">,</span> <span class="s2">&quot;PATH/TO/Microsoft.Python.LanguageServer.dll&quot;</span> <span class="p">],</span>
+  <span class="s2">&quot;languageId&quot;</span><span class="o">:</span> <span class="s2">&quot;python&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;scopes&quot;</span><span class="o">:</span> <span class="p">[</span> <span class="s2">&quot;source.python&quot;</span> <span class="p">],</span>
+  <span class="s2">&quot;syntaxes&quot;</span><span class="o">:</span> <span class="p">[</span>
+    <span class="s2">&quot;Packages/Python/Python.sublime-syntax&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Packages/MagicPython/grammars/MagicPython.tmLanguage&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Packages/Djaneiro/Syntaxes/Python Django.tmLanguage&quot;</span>
+  <span class="p">],</span>
+  <span class="s2">&quot;initializationOptions&quot;</span><span class="o">:</span>
+  <span class="p">{</span>
+    <span class="s2">&quot;interpreter&quot;</span><span class="o">:</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;properties&quot;</span><span class="o">:</span>
+      <span class="p">{</span>
+        <span class="s2">&quot;UseDefaultDatabase&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="s2">&quot;Version&quot;</span><span class="o">:</span> <span class="s2">&quot;3.7&quot;</span> <span class="c1">// python version</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;settings&quot;</span><span class="o">:</span>
+  <span class="p">{</span>
+    <span class="s2">&quot;python&quot;</span><span class="o">:</span>
+    <span class="p">{</span>
+      <span class="c1">// At least an empty &quot;python&quot; object is (currently) required to initialise the language server.</span>
+      <span class="c1">// Other options can be defined as explained below.</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">},</span>
+</code></pre></div>
+<p>The language server has to be configured as per the Microsoft <a href="https://github.com/microsoft/python-language-server/blob/master/README.md">documentation</a> and the Sublime Text <a href="https://github.com/Microsoft/python-language-server/blob/master/Using_in_sublime_text.md">instructions</a>.
+An exhaustive list of the configuration options can be found in the VSCode <a href="https://code.visualstudio.com/docs/python/settings-reference#_python-language-server-settings">documentation</a>.</p>
+<p>Here is an example of settings:</p>
+<div class="highlight"><pre><span></span><code>  <span class="s2">&quot;settings&quot;</span><span class="o">:</span>
+  <span class="p">{</span>
+    <span class="s2">&quot;python&quot;</span><span class="o">:</span>
+    <span class="p">{</span>
+      <span class="c1">// Solve the &#39;unresolved import&#39; warning as documented in:</span>
+      <span class="c1">// https://github.com/microsoft/python-language-server/blob/master/TROUBLESHOOTING.md#unresolved-import-warnings</span>
+      <span class="s2">&quot;autoComplete&quot;</span><span class="o">:</span>
+      <span class="p">{</span>
+          <span class="c1">// add extra path for Sublime Text plugins</span>
+          <span class="s2">&quot;extraPaths&quot;</span><span class="o">:</span> <span class="p">[</span> <span class="s2">&quot;/opt/sublime_text&quot;</span> <span class="p">]</span>
+      <span class="p">}</span>
+      <span class="c1">// Configure the linting options as documented in:</span>
+      <span class="c1">// https://github.com/microsoft/python-language-server/#linting-options-diagnostics</span>
+      <span class="s2">&quot;analysis&quot;</span><span class="o">:</span>
+      <span class="p">{</span>
+        <span class="s2">&quot;errors&quot;</span><span class="o">:</span> <span class="p">[</span> <span class="s2">&quot;undefined-variable&quot;</span> <span class="p">],</span>
+        <span class="s2">&quot;warnings&quot;</span><span class="o">:</span> <span class="p">[</span> <span class="s2">&quot;unknown-parameter-name&quot;</span> <span class="p">],</span>
+        <span class="s2">&quot;information&quot;</span><span class="o">:</span> <span class="p">[</span> <span class="s2">&quot;unresolved-import&quot;</span> <span class="p">],</span>
+        <span class="s2">&quot;disabled&quot;</span><span class="o">:</span> <span class="p">[</span> <span class="s2">&quot;too-many-function-arguments&quot;</span><span class="p">,</span> <span class="s2">&quot;parameter-missing&quot;</span> <span class="p">]</span>
+      <span class="p">},</span>
+      <span class="c1">// &quot;linting&quot;:</span>
+      <span class="c1">// {</span>
+      <span class="c1">//     &quot;enabled&quot;: &quot;false&quot;</span>
+      <span class="c1">// }</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+</code></pre></div>
+<h3 id="r">R<a name="r"></a><a class="headerlink" href="#r" title="Permanent link">#</a></h3>
+<ol>
+<li>
+<p>Install the <code>languageserver</code> package from CRAN (see the <a href="https://github.com/cran/languageserver">CRAN mirrored package on GitHub</a> for more information and up-to-date installation instructions):</p>
+<div class="highlight"><pre><span></span><code>install.packages(&quot;languageserver&quot;)
+</code></pre></div>
+</li>
+<li>
+<p>Run "LSP: Enable Language Server Globally" from the Command Palette and choose <code>rlang</code>.</p>
+</li>
+</ol>
+<h3 id="rubyruby-on-rails">Ruby/Ruby on Rails<a name="ruby"></a><a class="headerlink" href="#rubyruby-on-rails" title="Permanent link">#</a></h3>
+<p>Different servers are available for Ruby:</p>
+<p>Solargraph:</p>
+<ol>
+<li>
+<p>Install the solargraph gem (see <a href="https://github.com/castwide/solargraph">github:castwide/solargraph</a> for up-to-date installation instructions):</p>
+<div class="highlight"><pre><span></span><code>gem install solargraph
+</code></pre></div>
+</li>
+<li>
+<p>Run "LSP: Enable Language Server Globally" from the Command Palette and choose <code>ruby</code>.</p>
+</li>
+</ol>
+<p>Sorbet:</p>
+<ol>
+<li>
+<p>Install the sorbet and sorbet-runtime gem (see <a href="https://github.com/sorbet/sorbet">github:sorbet/sorbet</a>):</p>
+<div class="highlight"><pre><span></span><code>gem install sorbet
+gem install sorbet-runtime
+</code></pre></div>
+<p>If you have a Gemfile, using bundler, add sorbet and sorbet-runtime to your Gemfile and run:</p>
+<div class="highlight"><pre><span></span><code>bundle install
+</code></pre></div>
+</li>
+<li>
+<p>Run "LSP:Enable Language Server Globally" from the Command Palette and choose <code>sorbet</code>.</p>
+</li>
+</ol>
+<h3 id="rust">Rust<a name="rust"></a><a class="headerlink" href="#rust" title="Permanent link">#</a></h3>
+<p>Goes well with the <a href="https://github.com/rust-lang/rust-enhanced">Rust Enhanced package</a> which uses the RLS server: <a href="https://github.com/rust-lang-nursery/rls">github:rust-lang-nursery/rls</a> for up-to-date installation instructions.</p>
+<p>Alternatively, a newer <a href="https://github.com/rust-analyzer/rust-analyzer">rust-analyzer</a> server is under development, also supported by LSP.</p>
+<h3 id="scala">Scala<a name="scala"></a><a class="headerlink" href="#scala" title="Permanent link">#</a></h3>
+<ul>
+<li><strong><a href="https://scalameta.org/metals/">Metals</a></strong>: Most complete LSP server for Scala, see <a href="https://packagecontrol.io/packages/LSP-metals">LSP-metals</a> for installation.</li>
+<li><strong><a href="https://www.scala-sbt.org/">SBT</a></strong>: Version 1.x supports limited and <em>unmaintained</em> language server functionalities, setup is described <a href="http://eed3si9n.com/sbt-server-with-sublime-text3">here</a>.</li>
+<li><strong><a href="http://dotty.epfl.ch/">Dotty</a></strong>: The future Scala compiler <a href="http://dotty.epfl.ch/docs/usage/ide-support.html">contains LSP support</a>.
+It is developed against VS Code, so ignore instructions related to VS Code.
+Get the project compiling with dotty first (see <a href="https://github.com/lampepfl/dotty-example-project#using-dotty-in-an-existing-project">instructions</a>).
+At this point LSP should complain in the logs
+<code>java.util.concurrent.CompletionException: java.io.FileNotFoundException: /Users/tomv/Projects/tomv564/dottytest/finagle/doc/src/sphinx/code/quickstart/.dotty-ide.json</code>
+Then run <code>sbt configureIDE</code> to create the <code>.dotty-ide.json</code> file
+Then the LSP plugin should launch as configured in <code>LSP.sublime-settings</code> using coursier.</li>
+</ul>
+<h3 id="swift">Swift<a name="swift"></a><a class="headerlink" href="#swift" title="Permanent link">#</a></h3>
+<ol>
+<li>Install the <a href="https://packagecontrol.io/packages/Swift">Swift</a> package from Package Control for syntax highlighting.</li>
+<li>Install Xcode 11.4 or later and ensure that <code>xcrun -find sourcekit-lsp</code> returns the path to sourcekit-lsp.</li>
+</ol>
+<h3 id="terraform">Terraform<a name="terraform"></a><a class="headerlink" href="#terraform" title="Permanent link">#</a></h3>
+<ol>
+<li>Download <a href="https://github.com/juliosueiras/terraform-lsp/releases">terraform-lsp</a> binary and make it available in your PATH.</li>
+<li>Add to LSP settings' clients:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="s2">&quot;terraform&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&quot;command&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;terraform-lsp&quot;</span><span class="p">],</span>
+  <span class="s2">&quot;enabled&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="s2">&quot;languageId&quot;</span><span class="o">:</span> <span class="s2">&quot;terraform&quot;</span> <span class="c1">// will match source.terraform</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="vue-javascript">Vue (Javascript)<a name="vue"></a><a class="headerlink" href="#vue-javascript" title="Permanent link">#</a></h3>
+<p>See: <a href="https://packagecontrol.io/packages/LSP-vue">LSP-vue</a></p>
+<p>Be sure to install <a href="https://packagecontrol.io/packages/Vue%20Syntax%20Highlight">Vue Syntax Highlight</a> from Package Control.</p>
+<h3 id="xml">XML<a name="xml"></a><a class="headerlink" href="#xml" title="Permanent link">#</a></h3>
+<ol>
+<li>Download jar from <a href="https://github.com/angelozerr/lsp4xml/releases">angelozerr/lsp4xml</a>.</li>
+<li>Add to LSP settings' clients:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="s2">&quot;lsp4xml&quot;</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">&quot;command&quot;</span><span class="o">:</span> <span class="p">[</span>
+    <span class="s2">&quot;java&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;-DwatchParentProcess=false&quot;</span><span class="p">,</span>  <span class="c1">// false on windows, true on other operating systems</span>
+    <span class="c1">// JVM options (not necessary, but the vscode extension uses them by default)</span>
+    <span class="s2">&quot;-noverify&quot;</span><span class="p">,</span>                   <span class="c1">// bypass class verification</span>
+    <span class="s2">&quot;-Xmx64M&quot;</span><span class="p">,</span>                     <span class="c1">// set the maximum heap size</span>
+    <span class="s2">&quot;-XX:+UseG1GC&quot;</span><span class="p">,</span>                <span class="c1">// use the G1 garbage collector</span>
+    <span class="s2">&quot;-XX:+UseStringDeduplication&quot;</span><span class="p">,</span> <span class="c1">// enable string deduplication optimisation</span>
+    <span class="s2">&quot;-jar&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;PATH/TO/org.eclipse.lsp4xml-uber.jar&quot;</span>
+  <span class="p">],</span>
+  <span class="s2">&quot;enabled&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="s2">&quot;languageId&quot;</span><span class="o">:</span> <span class="s2">&quot;xml&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;document_selector&quot;</span><span class="o">:</span> <span class="s2">&quot;text.xml&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<blockquote>
+<p><strong>Note</strong>: Discussed in <a href="https://github.com/sublimelsp/LSP/issues/578">this issue</a>.</p>
+</blockquote>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href=".." class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Getting Started
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../features/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Features
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/vendor.7e0ee788.min.js"></script>
+      <script src="../assets/javascripts/bundle.b3a72adc.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "..",
+          features: [],
+          search: Object.assign({
+            worker: "../assets/javascripts/worker/search.4ac00218.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>
